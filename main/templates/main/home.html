@@ -43,6 +43,12 @@
         <input type="text" name="website" id="website" placeholder="Website Name">
         <input type="submit" value="Submit"/>
     </form>
+    {% if website %}
+    <h3>{{website.Title}}</h3>
+    <h3>{{website.Url}}</h3>
+    <h3>{{website.Price}}</h3>
+    <h3>{{website.Description}}</h3>
+    {% endif %}   
 </div>  
 </body>
 </html>
