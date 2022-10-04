@@ -22,17 +22,22 @@ def get_html_content(website):
     return html_content
 
 def home(request):
-    site_data = None
+    website_data = None
     if 'website' in request.GET:
         #fetch website
         website = request.GET.get('website')
         html_content = get_html_content(website)
         soup = BeautifulSoup(html_content, 'html.parser')
-        site_data = dict()
-        site_data['Title']= soup.find('span',attrs={'class':'B_NuCI'}).text
-        site_data['Url'] = print(website)
-        site_data['Description'] = soup.find('div',attrs={'class':'_1AN87F'}).text
-        site_data['Price'] = soup.find('div',attrs={'class':'_30jeq3 _16Jk6d'}).text
-        #Image = soup.find('span',attrs={'class':'_2r_T1I _396QI4'}).img  
-        
-    return render(request,'main/home.html', {website : site_data})
+        website_data = dict()
+        website_data['Title']= soup.find('span',attrs={'class':'B_NuCI'}).text
+        #print(Title)
+        website_data['Description'] = soup.find('div',attrs={'class':'_1AN87F'}).text
+        #print(Description)
+        website_data['Price'] = soup.find('div',attrs={'class':'_30jeq3 _16Jk6d'}).text
+        #print(Price)
+        website_data['Category']= soup.find('a',attrs={'class':'_2whKao'}).text
+        #print(Category) 
+        Image = soup.select('img',attrs={'class':'_2r_T1I _396QI4'})
+        images_url = Image[2]['src'] 
+        print(images_url)
+    return render(request,'main/home.html', {'website': website_data})
